@@ -234,7 +234,7 @@ public class OpcionesCorredor extends javax.swing.JDialog {
 
         logicaNegocio.leerCsvCorredores();
         rellenarTablaCorredores();
-        logicaNegocio.ordenar();
+        logicaNegocio.ordenarCorredores();
 
     }//GEN-LAST:event_jButtonAbrirCsvActionPerformed
 //GEN-FIRST:event_jButtonBorrarActionPerformed
@@ -272,7 +272,7 @@ public class OpcionesCorredor extends javax.swing.JDialog {
             modificarDialog.setLocationRelativeTo(null);
             modificarDialog.setVisible(true);
             rellenarTablaCorredores();
-            logicaNegocio.ordenar();
+            logicaNegocio.ordenarCorredores();
         }
         dispose();
     }//GEN-LAST:event_jButtonModificarActionPerformed
@@ -287,7 +287,7 @@ public class OpcionesCorredor extends javax.swing.JDialog {
         AltaCorredor altaCorredor = new AltaCorredor(this, true, logicaNegocio);
         altaCorredor.setVisible(true);
         rellenarTablaCorredores();
-        logicaNegocio.ordenar();
+        logicaNegocio.ordenarCorredores();
     }//GEN-LAST:event_jButtonDarAltaActionPerformed
 /**
  * Añadimos corredores a la carrera. Se rellenará la tabla de participantes. Si ya hay un 
@@ -348,7 +348,7 @@ public class OpcionesCorredor extends javax.swing.JDialog {
 
             JOptionPane.showMessageDialog(this, "Corredor borrado", "Information", JOptionPane.INFORMATION_MESSAGE);
             rellenarTablaCorredores();
-            logicaNegocio.ordenar();
+            logicaNegocio.ordenarCorredores();
         }
         dispose();
     }

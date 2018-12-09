@@ -210,7 +210,7 @@ public class LogicaNegocio implements Serializable {
      * Método que ordena a los corredores por fecha de nacimiento (de más edad a
      * menos edad).
      */
-    public void ordenar() {
+    public void ordenarCorredores() {
 
         Comparator<Corredor> comparatorCorredores = new Comparator<Corredor>() {
             public int compare(Corredor c, Corredor c1) {
@@ -220,6 +220,28 @@ public class LogicaNegocio implements Serializable {
         };
         listaCorredores.sort(comparatorCorredores);
         System.out.println(listaCorredores);
+
+    }
+    
+       /**
+     * Método que ordena a los participantes por tiempo de llegada.
+     */
+    public void ordenarParticipantes() {
+
+        Comparator<Participante> comparatorParticipantes = new Comparator<Participante>() {
+            public int compare(Corredor c, Corredor c1) {
+                return c.getFechaNacimiento().compareTo(c1.getFechaNacimiento());
+            }
+
+            @Override
+            public int compare(Participante p, Participante p1) {
+            return new Double(p.getTiempoLlegada()).compareTo(new Double(p1.getTiempoLlegada()));
+
+            }
+
+        };
+        listaParticipantes.sort(comparatorParticipantes);
+        System.out.println(listaParticipantes);
 
     }
 

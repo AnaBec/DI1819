@@ -42,10 +42,7 @@ private List<Integer>dorsalesRegistrados=new ArrayList<>();
         initComponents();
       
         this.carrera=carrera;
-       /*  for (Participante participante : carrera.getListaParticipantes()) {
-                    dorsales.add(participante.getDorsal());
-                    System.out.println("------"+carrera.toString());*/
-        
+       
         this.setLocationRelativeTo(null);
         ponLaAyuda();
         
@@ -54,40 +51,45 @@ private List<Integer>dorsalesRegistrados=new ArrayList<>();
         cronometroAna.addMetaListener(new Meta(){
             @Override
             public void ejecutar(int dorsal, int tiempoLlegadaPorPersona) {
-             
+               int contadorParticipantes = 0;
+                 String pregunta = JOptionPane.showInputDialog("¿Qué participante ha llegado "
+                        + "con ese tiempo a la meta? Introduzca su dorsal, por favor");
+                int dorsalParticipante = Integer.parseInt(pregunta);
                 
         for (int i = 0; i < carrera.getListaParticipantes().size(); i++) {
                     carrera.getListaParticipantes().get(i);
-                    if (carrera.getListaParticipantes().get(i).getDorsal() == dorsal) {
-                        carrera.getListaParticipantes().get(i).setTiempoLlegada(tiempoLlegadaPorPersona);
-                        System.out.println("tiempo: " + tiempoLlegadaPorPersona);
-                       
-             
-                        
-                        JOptionPane.showMessageDialog(null, "El participante con dorsal: "
-                                    + dorsal + ", ha llegado a la meta con un tiempo de : " + tiempoLlegadaPorPersona);
-                        
-                        jTableMeta.setModel(new TableModelParticipantes(
+                    
+                    if (carrera.getListaParticipantes().get(i).getDorsal() == dorsalParticipante) {
+                /////////     ///////
+                         if (carrera.getListaParticipantes().get(i).getTiempoLlegada()==0.0) {
+                            carrera.getListaParticipantes().get(i).setTiempoLlegada(tiempoLlegadaPorPersona);     
+                         
+                            jTableMeta.setModel(new TableModelParticipantes(
                         carrera.getListaParticipantes()));
-                        
-                        int contadorParticipantes = 0;
-                            contadorParticipantes++;
                             
-                       
-                            
-                            if (contadorParticipantes == carrera.getListaParticipantes().size()) {
+                             JOptionPane.showMessageDialog(null, "El participante con dorsal: "
+                                    + dorsal + ", ha llegado a la meta con un tiempo de : " + tiempoLlegadaPorPersona);
+                           
+                             contadorParticipantes++;
+               if (contadorParticipantes == carrera.getListaParticipantes().size()) {
                                 JOptionPane.showMessageDialog(null, "Ya han llegado "
                                         + "todos los participantes.");
                                 tiempoTotalCarrera = tiempoLlegadaPorPersona;
+                                
                                 cronometroAna.detenerse();
+                                logicaNegocio.ordenarParticipantes();
+                                
+                                    jTableMeta.setModel(new TableModelParticipantes(
+                                    carrera.getListaParticipantes()));
+                                    
                                  JOptionPane.showMessageDialog(null, "FIN DE LA CARRERA!! Tiempo total: "
                                 + tiempoTotalCarrera);
                             }
                         } else {
-                        
-            //rellenar tabla
-                        jTableMeta.setModel(new TableModelParticipantes(
-                        carrera.getListaParticipantes()));
+                     JOptionPane.showMessageDialog(null, "ERROR. Este participante ya ha llegado a la meta.");
+
+
+                    }
                     }
                     
                 }  
@@ -194,11 +196,12 @@ private List<Integer>dorsalesRegistrados=new ArrayList<>();
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(60, 60, 60)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cronometroAna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(244, 244, 244)
+                        .addComponent(cronometroAna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(208, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -206,9 +209,9 @@ private List<Integer>dorsalesRegistrados=new ArrayList<>();
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(31, 31, 31)
                 .addComponent(cronometroAna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
