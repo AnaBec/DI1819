@@ -1,0 +1,8 @@
+<toc version="1.0">
+      <tocitem text="Pantalla Principal" target="pantallaPrincipal"/>
+      <tocitem text="Alta Carrera" target="altaCarrera"/>
+      <tocitem text="Alta Corredor" target="altaCorredor"/>
+      <tocitem text="Opciones Carrera y Participantes" target="opcionesCarreraParticipantes"/>
+      <tocitem text="Opciones Corredor" target="opcionesCorredor"/>
+      <tocitem text="Start Carrera" target="startCarrera"/>     
+</toc>

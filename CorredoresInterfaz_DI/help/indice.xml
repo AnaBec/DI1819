@@ -1,0 +1,8 @@
+<index version="1.0">
+   <indexitem text="Alta Carrera" target="altaCarrera"/>
+   <indexitem text="Alta Corredor" target="altaCorredor"/>
+   <indexitem text="Opciones Carrera y Participantes" target="opcionesCarreraParticipantes"/>
+   <indexitem text="Opciones Corredor" target="opcionesCorredor"/>
+   <indexitem text="Pantalla Principal" target="pantallaPrincipal"/>
+   <indexitem text="Start Carrera" target="startCarrera"/>
+</index>

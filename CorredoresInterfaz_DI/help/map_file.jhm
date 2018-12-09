@@ -1,0 +1,8 @@
+<map version="1.0">
+   <mapID target="altaCarrera" url="html/altaCarrera.html" />
+   <mapID target="altaCorredor" url="html/altaCorredor.html" />
+   <mapID target="opcionesCarreraParticipantes" url="html/opcionesCarreraParticipantes.html" />
+   <mapID target="opcionesCorredor" url="html/opcionesCorredor.html" />
+   <mapID target="pantallaPrincipal" url="html/pantallaPrincipal.html" />
+   <mapID target="startCarrera" url="html/startCarrera.html" />
+</map>
