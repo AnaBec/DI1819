@@ -35,17 +35,16 @@ public class CronometroAna extends JButton implements ActionListener, Serializab
         this.setText("0" + ":" + "0" + ":" + "0");
         this.setEnabled(true);
         this.setForeground(Color.BLACK);
-        this.setBackground(Color.PINK);
-        Font fuente = new Font("DS-DIGITAL", Font.BOLD, 30);
+        this.setBackground(Color.WHITE);
+        Font fuente = new Font("Agency FB", Font.BOLD, 30);
         this.setFont(fuente);
         this.addActionListener(new java.awt.event.ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String dorsal = JOptionPane.showInputDialog("¿Qué participante ha llegado "
-                        + "con ese tiempo a la meta? Introduzca su dorsal, por favor");
-                int dorsalParticipante = Integer.parseInt(dorsal);
+               
+                int dorsalParticipante = 0 ;
                 int tiempo = horas*3600+minutos*60+segundos;
                 
                 meta.ejecutar(dorsalParticipante, tiempo);
@@ -61,14 +60,14 @@ public class CronometroAna extends JButton implements ActionListener, Serializab
         this.meta= meta;
     }
 
-    public void estMinuto(int min) {
+    public void setMinuto(int min) {
         this.minutos = min;
     }
 
-    public void estSegundo(int seg) {
+    public void setSegundo(int seg) {
         this.segundos = seg;
     }
-public void estHoras(int horas) {
+public void setHoras(int horas) {
         this.horas = horas;
     }
 
