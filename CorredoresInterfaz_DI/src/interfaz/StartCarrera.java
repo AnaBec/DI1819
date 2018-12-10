@@ -15,6 +15,7 @@ import javax.help.HelpSet;
 import javax.swing.JOptionPane;
 import logica.LogicaNegocio;
 import modelo.Carrera;
+import modelo.Participante;
 import modelo.TableModelParticipantes;
 
 /**
@@ -29,6 +30,7 @@ public class StartCarrera extends javax.swing.JDialog {
     private List<Integer> dorsales = new ArrayList<>();
     private int tiempoLlegadaPorPersona;
     private int tiempoTotalCarrera;
+    private int contadorParticipantes = 0;
 
     public StartCarrera(java.awt.Dialog parent, boolean modal, Carrera carrera, LogicaNegocio logicaNegocio) {
         super(parent, modal);
@@ -44,18 +46,18 @@ public class StartCarrera extends javax.swing.JDialog {
         cronometroAna.addMetaListener(new Meta() {
             @Override
             public void ejecutar(int dorsal, int tiempoLlegadaPorPersona) {
-                int contadorParticipantes = 0;
+              
                 String pregunta = JOptionPane.showInputDialog("¿Qué participante ha llegado "
                         + "con ese tiempo a la meta? Introduzca su dorsal, por favor");
                 int dorsalParticipante = Integer.parseInt(pregunta);
 
                 for (int i = 0; i < carrera.getListaParticipantes().size(); i++) {
-                    carrera.getListaParticipantes().get(i);
+                   Participante participante= carrera.getListaParticipantes().get(i);
 
-                    if (carrera.getListaParticipantes().get(i).getDorsal() == dorsalParticipante) {
+                    if (participante.getDorsal() == dorsalParticipante) {
 
-                        if (carrera.getListaParticipantes().get(i).getTiempoLlegada() == 0.0) {
-                            carrera.getListaParticipantes().get(i).setTiempoLlegada(tiempoLlegadaPorPersona);
+                        if (participante.getTiempoLlegada() == 0.0) {
+                           participante.setTiempoLlegada(tiempoLlegadaPorPersona);
 
                             jTableMeta.setModel(new TableModelParticipantes(
                                     carrera.getListaParticipantes()));
@@ -68,6 +70,7 @@ public class StartCarrera extends javax.swing.JDialog {
                                 JOptionPane.showMessageDialog(null, "Ya han llegado "
                                         + "todos los participantes.");
                                 tiempoTotalCarrera = tiempoLlegadaPorPersona;
+                                cronometroAna.detenerse();
 
                                 jTableMeta.setModel(new TableModelParticipantes(
                                         carrera.getListaParticipantes()));
