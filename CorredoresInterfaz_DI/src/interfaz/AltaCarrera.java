@@ -82,9 +82,9 @@ public class AltaCarrera extends javax.swing.JDialog {
 
             // Pone ayuda a item de menu al pulsarlo y a F1 en ventana
             // principal y secundaria.
-            hb.enableHelpOnButton(jMenuItemAyuda, "altaCorredor", helpset);//Hay q pasarle un boton, nunca otra cosa. habilita la ayuda en un boton o en un elemento.
+            hb.enableHelpOnButton(jMenuItemAyuda, "altaCarrera", helpset);//Hay q pasarle un boton, nunca otra cosa. habilita la ayuda en un boton o en un elemento.
             //Cuando te hagan click en ayudamenuitem, abre ventana principal.
-            hb.enableHelpKey(getRootPane(), "altaCorredor", helpset);//lo q pasa cuando hacemos "f1".getrootpane: si esta en una pantalla y hace f1, sale la pantalla. Si
+            hb.enableHelpKey(getRootPane(), "altaCarrera", helpset);//lo q pasa cuando hacemos "f1".getrootpane: si esta en una pantalla y hace f1, sale la pantalla. Si
             //esta el foco en jButton1 y hace "f1", salta la ayuda ahi.
 
         } catch (Exception e) {
@@ -351,10 +351,9 @@ public class AltaCarrera extends javax.swing.JDialog {
             carreraModificar.setNumMaxCorredores(numMaxCorredores);
 
             JOptionPane.showMessageDialog(this, "Carrera modificada");
-            
-            
+
         }
-      dispose();
+        dispose();
 
     }//GEN-LAST:event_jButtonAceptarCaActionPerformed
 

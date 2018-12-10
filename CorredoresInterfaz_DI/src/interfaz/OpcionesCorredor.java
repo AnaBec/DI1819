@@ -5,10 +5,8 @@
  */
 package interfaz;
 
-import java.awt.Component;
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
@@ -289,13 +287,15 @@ public class OpcionesCorredor extends javax.swing.JDialog {
         rellenarTablaCorredores();
         logicaNegocio.ordenarCorredores();
     }//GEN-LAST:event_jButtonDarAltaActionPerformed
-/**
- * Añadimos corredores a la carrera. Se rellenará la tabla de participantes. Si ya hay un 
- * corredor inscrito, no nos dejará añadirlo (se diferencian por el dni) y si el número
- * de participantes que queremos inscribir excede el num max permitido de la carrera, nos
- * saltará otro error, no dejándonos añadir mas corredores
- * @param evt 
- */
+    /**
+     * Añadimos corredores a la carrera. Se rellenará la tabla de participantes.
+     * Si ya hay un corredor inscrito, no nos dejará añadirlo (se diferencian
+     * por el dni) y si el número de participantes que queremos inscribir excede
+     * el num max permitido de la carrera, nos saltará otro error, no dejándonos
+     * añadir mas corredores
+     *
+     * @param evt
+     */
     private void jButtonAnhadirAcarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnhadirAcarreraActionPerformed
         if (jTableCorredores.getSelectedRowCount() > 0) {
 
@@ -309,14 +309,14 @@ public class OpcionesCorredor extends javax.swing.JDialog {
             if (correcto) {
                 for (Participante participante : carrera.getListaParticipantes()) {
                     if (corredor.getDni().equals(participante.getCorredor().getDni())) {
-                       JOptionPane.showMessageDialog(this, "El participante ya está inscrito");
+                        JOptionPane.showMessageDialog(this, "El participante ya está inscrito");
                         correcto = false;
                         break; //le ordena que ya no siga recorriendo el for
                     }
 
                 }
                 if (correcto) { //sólo si hasta aquí nada ha cambiado la variable correcto
-            //el dorsal y el tiempo va gestionado en logicaNegocio en este metodo "anhadirCorredorAcarrera
+                    //el dorsal y el tiempo va gestionado en logicaNegocio en este metodo "anhadirCorredorAcarrera
                     logicaNegocio.anhadirCorredorAcarrera(corredor, carrera);
                 }
             }
@@ -375,9 +375,9 @@ public class OpcionesCorredor extends javax.swing.JDialog {
 
             // Pone ayuda a item de menu al pulsarlo y a F1 en ventana
             // principal y secundaria.
-            hb.enableHelpOnButton(jMenuItemAyuda, "altaCorredor", helpset);//Hay q pasarle un boton, nunca otra cosa. habilita la ayuda en un boton o en un elemento.
+            hb.enableHelpOnButton(jMenuItemAyuda, "opcionesCorredor", helpset);//Hay q pasarle un boton, nunca otra cosa. habilita la ayuda en un boton o en un elemento.
             //Cuando te hagan click en ayudamenuitem, abre ventana principal.
-            hb.enableHelpKey(getRootPane(), "altaCorredor", helpset);//lo q pasa cuando hacemos "f1".getrootpane: si esta en una pantalla y hace f1, sale la pantalla. Si
+            hb.enableHelpKey(getRootPane(), "opcionesCorredor", helpset);//lo q pasa cuando hacemos "f1".getrootpane: si esta en una pantalla y hace f1, sale la pantalla. Si
             //esta el foco en jButton1 y hace "f1", salta la ayuda ahi.
 
         } catch (Exception e) {

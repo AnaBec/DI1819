@@ -22,10 +22,9 @@ public class Carrera {
     private int numMaxCorredores;
     private List<Participante> listaParticipantes;
 
-   /* public Carrera() {
+    /* public Carrera() {
 
     }*/
-
     /**
      * Método constructor donde ya creamos la coleccion de dorsales
      *
@@ -43,7 +42,7 @@ public class Carrera {
 
     }
 
-   /**
+    /**
      * Método getter
      *
      * @return nombreCarrera

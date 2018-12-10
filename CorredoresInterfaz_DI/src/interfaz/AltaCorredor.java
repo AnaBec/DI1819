@@ -13,7 +13,6 @@ import javax.help.HelpSet;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import logica.LogicaNegocio;
 import modelo.Corredor;
 import org.netbeans.validation.api.builtin.stringvalidation.MayusculaValidator;
@@ -121,10 +120,9 @@ public class AltaCorredor extends javax.swing.JDialog {
         jTextFieldTlfno.setText(Integer.toString(this.corredorModificar.getTlfno()));
         jSpinnerFechaNacimiento.setValue(this.corredorModificar.getFechaNacimiento());
 
-         /**
+        /**
          * VALIDACIONES
          */
-
         jButtonAceptar.setEnabled(false);
         ValidationGroup group = validationPanel.getValidationGroup();
         group.add(jTextFieldNombre, StringValidators.REQUIRE_NON_EMPTY_STRING, new MayusculaValidator());

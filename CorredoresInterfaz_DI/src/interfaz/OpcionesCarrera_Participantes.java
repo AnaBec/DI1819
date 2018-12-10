@@ -9,7 +9,6 @@ import java.io.File;
 import java.net.URL;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import logica.LogicaNegocio;
 import modelo.*;
@@ -62,9 +61,9 @@ public class OpcionesCarrera_Participantes extends javax.swing.JDialog {
 
             // Pone ayuda a item de menu al pulsarlo y a F1 en ventana
             // principal y secundaria.
-            hb.enableHelpOnButton(jMenuItemAyuda, "altaCorredor", helpset);//Hay q pasarle un boton, nunca otra cosa. habilita la ayuda en un boton o en un elemento.
+            hb.enableHelpOnButton(jMenuItemAyuda, "opcionesCarreraParticipantes", helpset);//Hay q pasarle un boton, nunca otra cosa. habilita la ayuda en un boton o en un elemento.
             //Cuando te hagan click en ayudamenuitem, abre ventana principal.
-            hb.enableHelpKey(getRootPane(), "altaCorredor", helpset);//lo q pasa cuando hacemos "f1".getrootpane: si esta en una pantalla y hace f1, sale la pantalla. Si
+            hb.enableHelpKey(getRootPane(), "opcionesCarreraParticipantes", helpset);//lo q pasa cuando hacemos "f1".getrootpane: si esta en una pantalla y hace f1, sale la pantalla. Si
             //esta el foco en jButton1 y hace "f1", salta la ayuda ahi.
 
         } catch (Exception e) {

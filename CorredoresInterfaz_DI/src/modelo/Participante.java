@@ -15,19 +15,6 @@ public class Participante {
     private Corredor corredor;
     private int tiempoLlegada;
 
-   /* public Participante() {
-    }*/
-
-  /*  public Participante(Corredor corredor) {
-        this.corredor = corredor;
-    }*/
-
-    
-    /*public Participante(int dorsal, Corredor corredor) {
-        this.dorsal = dorsal;
-        this.corredor = corredor;
-    }*/
-
     public Participante(int dorsal, Corredor corredor, int tiempoLlegada) {
         this.dorsal = dorsal;
         this.corredor = corredor;

@@ -1,7 +1,6 @@
 package modelo;
 
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * Clase corredor
@@ -47,7 +46,6 @@ public class Corredor {
      *
      * @param nombre Nombre
      */
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -134,14 +132,13 @@ public class Corredor {
         return nombre + ", " + dni + ", " + direccion + ", " + tlfno + ", " + fechaNacimiento;
     }
 
-  @Override
+    @Override
     public int hashCode() {
         int hash = 3;
         return hash;
     }
 
     public boolean equals(Corredor c) {
-        
 
         if (this.dni.equals(c.dni)) {
             return true;
@@ -149,7 +146,5 @@ public class Corredor {
             return false;
         }
     }
-
-   
 
 }

@@ -6,7 +6,7 @@
 package logica;
 
 import Utilidades.Utils;
-import interfaz.OpcionesCorredor;
+import static Utilidades.Utils.sdf;
 import java.awt.Component;
 import java.io.*;
 import java.text.ParseException;
@@ -28,6 +28,7 @@ public class LogicaNegocio implements Serializable {
     private List<Corredor> listaCorredores;
     private List<Carrera> listaCarreras;
     private List<Participante> listaParticipantes;
+    private List<Carrera> listaCarrerasFinalizadas;
 
     /**
      * Metodo constructor donde ya creamos la lista de corredores, la lista de
@@ -37,7 +38,7 @@ public class LogicaNegocio implements Serializable {
     public LogicaNegocio() {
         listaCorredores = new ArrayList<>();
         listaCarreras = new ArrayList<>();
-
+        listaCarrerasFinalizadas = new ArrayList<>();
     }
 
     public List<Corredor> getListaCorredores() {
@@ -72,6 +73,14 @@ public class LogicaNegocio implements Serializable {
     public void anhadirCorredor(Corredor corredor) {
 
         listaCorredores.add(corredor);
+    }
+
+    public List<Carrera> getListaCarrerasFinalizadas() {
+        return listaCarrerasFinalizadas;
+    }
+
+    public void setListaCarrerasFinalizadas(List<Carrera> listaCarrerasFinalizadas) {
+        this.listaCarrerasFinalizadas = listaCarrerasFinalizadas;
     }
 
     /**
@@ -184,7 +193,7 @@ public class LogicaNegocio implements Serializable {
             pw = new PrintWriter(fw);
 
             for (Corredor corredor : listaCorredores) {
-                pw.write(corredor.getNombre() + "," + corredor.getDni()+","+ corredor.getDireccion()
+                pw.write(corredor.getNombre() + "," + corredor.getDni() + "," + corredor.getDireccion()
                         + "," + "," + corredor.getTlfno() + ","
                         + Utils.sdf.format(corredor.getFechaNacimiento()) + "\n");
 
@@ -220,28 +229,6 @@ public class LogicaNegocio implements Serializable {
         };
         listaCorredores.sort(comparatorCorredores);
         System.out.println(listaCorredores);
-
-    }
-    
-       /**
-     * Método que ordena a los participantes por tiempo de llegada.
-     */
-    public void ordenarParticipantes() {
-
-        Comparator<Participante> comparatorParticipantes = new Comparator<Participante>() {
-            public int compare(Corredor c, Corredor c1) {
-                return c.getFechaNacimiento().compareTo(c1.getFechaNacimiento());
-            }
-
-            @Override
-            public int compare(Participante p, Participante p1) {
-            return new Double(p.getTiempoLlegada()).compareTo(new Double(p1.getTiempoLlegada()));
-
-            }
-
-        };
-        listaParticipantes.sort(comparatorParticipantes);
-        System.out.println(listaParticipantes);
 
     }
 
@@ -304,14 +291,13 @@ public class LogicaNegocio implements Serializable {
             fw = new FileWriter("CarrerasInterfaz.csv", true);
             pw = new PrintWriter(fw);
 
-           // List<Participante> listaParticipantes = new ArrayList<Participante>();
             for (Carrera carrera : listaCarreras) {
                 for (Participante participante : carrera.getListaParticipantes()) {
                     pw.write(carrera.getNombreCarrera() + "," + Utils.sdf.format(carrera.getFechaCarrera()) + ","
                             + carrera.getLugar() + "," + carrera.getNumMaxCorredores() + ","
                             + participante.getDorsal() + "," + participante.getCorredor() + ","
                             + participante.getTiempoLlegada() + "\n");
-                      }
+                }
             }
         } catch (IOException ex) {
             System.out.println("IO Error");;
@@ -339,7 +325,6 @@ public class LogicaNegocio implements Serializable {
         listaCarreras.clear();
         File file = new File("CarrerasInterfaz.csv");
 
-        //List<Participante> listaParticipantes = new ArrayList<Participante>();
         if (file.exists()) {
             String linea;
             try {
@@ -409,6 +394,52 @@ public class LogicaNegocio implements Serializable {
             }
         }, 0, tiempoGuardado * 60 * 1000);
 
+    }
+
+    public void guardarResultadoCarreras() {
+
+        FileWriter fw = null;
+        PrintWriter pw = null;
+
+        for (int i = 0; i < listaCarrerasFinalizadas.size(); i++) {
+            
+
+            try {
+                fw = new FileWriter("Resultado.csv", true);
+                pw = new PrintWriter(fw);
+                pw.write("CARRERAS" + "\n");
+                pw.write("NOMBRE CARRERA: " + getListaCarrerasFinalizadas()
+                        .get(i).getNombreCarrera() + "\n");
+
+                pw.write("FECHA CARRERA: " + Utils.sdf.format(this.
+                        getListaCarrerasFinalizadas().get(i).
+                        getFechaCarrera()) + "\n");
+                pw.write("LUGAR CARRERA: " + this.getListaCarrerasFinalizadas()
+                        .get(i).getLugar() + "\n");
+                pw.write("NUM MAX CORREDORES: " + this.getListaCarrerasFinalizadas()
+                        .get(i).getNumMaxCorredores() + "\n");
+
+                pw.write("PARTICIPANTES" + "\n");
+
+                for (int j = 0; j < this.getListaCarrerasFinalizadas().get(i).
+                        getListaParticipantes().size(); i++) {
+                    pw.write("DORSAL" + this.getListaCarrerasFinalizadas().get(i).
+                            getListaParticipantes().get(j).getDorsal() + "\n");
+                    pw.write("CORREDOR" + this.getListaCarrerasFinalizadas().get(i).
+                            getListaParticipantes().get(j).getCorredor() + "\n");
+                    pw.write("TIEMPO" + this.getListaCarrerasFinalizadas().get(i).
+                            getListaParticipantes().get(j).getTiempoLlegada() + "\n");
+
+                    fw.flush();
+                    fw.close();
+                    pw.flush();
+                    pw.close();
+                }
+            } catch (IOException ex) {
+                System.out.println("IO Error");
+            }
+
+        }
     }
 
 }

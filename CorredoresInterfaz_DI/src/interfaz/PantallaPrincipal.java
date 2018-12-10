@@ -8,8 +8,6 @@ package interfaz;
 import com.easynth.lookandfeel.EaSynthLookAndFeel;
 import com.jtattoo.plaf.noire.NoireLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -39,8 +37,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource(RUTA_LOGO1)).getImage());
         setTitle("Running App");//titulo de la app
         ponLaAyuda();
-        
-        
 
         /*PARA AÑADIR MÁS LOOK AND FEELS QUE HAYAMOS INSTALADO*/
         UIManager.installLookAndFeel(new UIManager.LookAndFeelInfo("EaSynth", EaSynthLookAndFeel.class.getName()));
@@ -48,12 +44,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         UIManager.installLookAndFeel(new UIManager.LookAndFeelInfo("Synthetica Black Eye", SyntheticaStandardLookAndFeel.class.getName()));
 
         /*HACER LA VENTANA DE UN TAMAÑO FIJO*/
-        
         this.setResizable(false);
-        
+
     }
-    
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -261,6 +254,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
     }
+
     private void ponLaAyuda() {
         try {
             // Carga el fichero de ayuda. Si tenemos la carpeta "help" en el directorio de paquetes del proyecto donde build, src, etc
@@ -275,16 +269,16 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
             // Pone ayuda a item de menu al pulsarlo y a F1 en ventana
             // principal y secundaria.
-            hb.enableHelpOnButton(jMenuItemAyuda, "altaCorredor", helpset);//Hay q pasarle un boton, nunca otra cosa. habilita la ayuda en un boton o en un elemento.
+            hb.enableHelpOnButton(jMenuItemAyuda, "pantallaPrincipal", helpset);//Hay q pasarle un boton, nunca otra cosa. habilita la ayuda en un boton o en un elemento.
             //Cuando te hagan click en ayudamenuitem, abre ventana principal.
-            hb.enableHelpKey(getRootPane(), "altaCorredor", helpset);//lo q pasa cuando hacemos "f1".getrootpane: si esta en una pantalla y hace f1, sale la pantalla. Si
+            hb.enableHelpKey(getRootPane(), "pantallaPrincipal", helpset);//lo q pasa cuando hacemos "f1".getrootpane: si esta en una pantalla y hace f1, sale la pantalla. Si
             //esta el foco en jButton1 y hace "f1", salta la ayuda ahi.
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAccederCarreras;
     private javax.swing.JButton jButtonAccederCorredores;
