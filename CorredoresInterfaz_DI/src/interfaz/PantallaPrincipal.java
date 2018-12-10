@@ -8,6 +8,8 @@ package interfaz;
 import com.easynth.lookandfeel.EaSynthLookAndFeel;
 import com.jtattoo.plaf.noire.NoireLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +18,7 @@ import javax.help.HelpBroker;
 import javax.help.HelpSet;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
+import logica.GestionGuardado;
 import logica.LogicaNegocio;
 import org.openide.util.Exceptions;
 
@@ -45,6 +48,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         /*HACER LA VENTANA DE UN TAMAÑO FIJO*/
         this.setResizable(false);
+        
+        /*AUTOGUARDADO*/
+          this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                super.windowClosing(we);
+              
+                GestionGuardado.salvarCambios();
+              
+
+            }
+        });
 
     }
 

@@ -408,49 +408,39 @@ public class LogicaNegocio implements Serializable {
         }
 
     }
-
-    public void guardarResultadoCarreras() {
+/**
+ * Graba un csv de los resultados de las carreras
+ */
+    public void grabarResultados() {
 
         FileWriter fw = null;
         PrintWriter pw = null;
 
-        for (int i = 0; i < listaCarrerasFinalizadas.size(); i++) {
+        try {
+            fw = new FileWriter("resultados.csv", true);
+            pw = new PrintWriter(fw);
 
-            try {
-                fw = new FileWriter("Resultado.csv", true);
-                pw = new PrintWriter(fw);
-                pw.write("CARRERAS" + "\n");
-                pw.write("NOMBRE CARRERA: " + getListaCarrerasFinalizadas()
-                        .get(i).getNombreCarrera() + "\n");
-
-                pw.write("FECHA CARRERA: " + Utils.sdf.format(this.
-                        getListaCarrerasFinalizadas().get(i).
-                        getFechaCarrera()) + "\n");
-                pw.write("LUGAR CARRERA: " + this.getListaCarrerasFinalizadas()
-                        .get(i).getLugar() + "\n");
-                pw.write("NUM MAX CORREDORES: " + this.getListaCarrerasFinalizadas()
-                        .get(i).getNumMaxCorredores() + "\n");
-
-                pw.write("PARTICIPANTES" + "\n");
-
-                for (int j = 0; j < this.getListaCarrerasFinalizadas().get(i).
-                        getListaParticipantes().size(); i++) {
-                    pw.write("DORSAL" + this.getListaCarrerasFinalizadas().get(i).
-                            getListaParticipantes().get(j).getDorsal() + "\n");
-                    pw.write("CORREDOR" + this.getListaCarrerasFinalizadas().get(i).
-                            getListaParticipantes().get(j).getCorredor() + "\n");
-                    pw.write("TIEMPO" + this.getListaCarrerasFinalizadas().get(i).
-                            getListaParticipantes().get(j).getTiempoLlegada() + "\n");
-
-                    fw.flush();
-                    fw.close();
-                    pw.flush();
-                    pw.close();
+            for (Carrera carrera : listaCarreras) {
+                for (Participante participante : carrera.getListaParticipantes()) {
+                    pw.write("R E S U L T A D O S  C A R R E R A S\n" + "-->NOMBRE\n" + carrera.getNombreCarrera() + "\n" +"-->FECHA\n" + Utils.sdf.format(carrera.getFechaCarrera()) + "\n"
+                            + "-->LUGAR\n"+carrera.getLugar() + "\n" +"-->NUM MAX CORREDORES\n"+ carrera.getNumMaxCorredores() + "\n"
+                            + "-->DORSAL\n"+participante.getDorsal() + "\n" +"-->CORREDOR\n"+ participante.getCorredor() + "\n"
+                            + "-->TIEMPO LLEGADA\n"+participante.getTiempoLlegada() + "\n");
                 }
-            } catch (IOException ex) {
-                System.out.println("IO Error");
             }
+        } catch (IOException ex) {
+            System.out.println("IO Error");;
 
+        } finally {
+            try {
+
+                fw.flush();
+                fw.close();
+                pw.flush();
+                pw.close();
+            } catch (IOException ex) {
+                System.out.println("IOError");
+            }
         }
     }
 

@@ -40,6 +40,7 @@ public class OpcionesCarrera_Participantes extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         rellenarTablaCarreras();
         ponLaAyuda();
+       
 
 
         /*HACER LA VENTANA DE UN TAMAÑO FIJO*/

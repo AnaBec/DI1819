@@ -9,6 +9,8 @@ import cronometroana.Meta;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
@@ -37,6 +39,7 @@ public class StartCarrera extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.logicaNegocio = logicaNegocio;
         this.carrera = carrera;
         this.setLocationRelativeTo(null);
         ponLaAyuda();
@@ -46,18 +49,14 @@ public class StartCarrera extends javax.swing.JDialog {
         cronometroAna.addMetaListener(new Meta() {
             @Override
             public void ejecutar(int dorsal, int tiempoLlegadaPorPersona) {
-              
-                String pregunta = JOptionPane.showInputDialog("¿Qué participante ha llegado "
-                        + "con ese tiempo a la meta? Introduzca su dorsal, por favor");
-                int dorsalParticipante = Integer.parseInt(pregunta);
 
                 for (int i = 0; i < carrera.getListaParticipantes().size(); i++) {
-                   Participante participante= carrera.getListaParticipantes().get(i);
+                    Participante participante = carrera.getListaParticipantes().get(i);
 
-                    if (participante.getDorsal() == dorsalParticipante) {
+                    if (participante.getDorsal() == dorsal) {
 
                         if (participante.getTiempoLlegada() == 0.0) {
-                           participante.setTiempoLlegada(tiempoLlegadaPorPersona);
+                            participante.setTiempoLlegada(tiempoLlegadaPorPersona);
 
                             jTableMeta.setModel(new TableModelParticipantes(
                                     carrera.getListaParticipantes()));
@@ -130,6 +129,7 @@ public class StartCarrera extends javax.swing.JDialog {
         jTableMeta = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         cronometroAna = new cronometroana.CronometroAna();
+        jButtonGuardarResultados = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuAyuda = new javax.swing.JMenu();
         jMenuItemAyuda = new javax.swing.JMenuItem();
@@ -163,6 +163,13 @@ public class StartCarrera extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText(org.openide.util.NbBundle.getMessage(StartCarrera.class, "StartCarrera.jLabel2.text")); // NOI18N
 
+        jButtonGuardarResultados.setText(org.openide.util.NbBundle.getMessage(StartCarrera.class, "StartCarrera.jButtonGuardarResultados.text")); // NOI18N
+        jButtonGuardarResultados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarResultadosActionPerformed(evt);
+            }
+        });
+
         jMenuAyuda.setText(org.openide.util.NbBundle.getMessage(StartCarrera.class, "StartCarrera.jMenuAyuda.text")); // NOI18N
         jMenuAyuda.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
 
@@ -178,21 +185,27 @@ public class StartCarrera extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2)
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jButtonFinCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(174, 174, 174)
-                        .addComponent(cronometroAna, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                            .addContainerGap()))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonFinCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonGuardarResultados)
+                .addGap(131, 131, 131))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cronometroAna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,10 +216,12 @@ public class StartCarrera extends javax.swing.JDialog {
                 .addComponent(cronometroAna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonFinCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonGuardarResultados)
                 .addContainerGap())
         );
 
@@ -215,15 +230,32 @@ public class StartCarrera extends javax.swing.JDialog {
 
     private void jButtonFinCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinCarreraActionPerformed
         cronometroAna.detenerse();
-        JOptionPane.showMessageDialog(this, "FIN DE LA CARRERA");
 
+        JOptionPane.showMessageDialog(this, "FIN DE LA CARRERA");
+      
+          
+          Collections.sort(carrera.getListaParticipantes(), (Participante p1, Participante p2) -> new Double(p1.getTiempoLlegada()).compareTo(new Double(p2.getTiempoLlegada())));
+
+          JOptionPane.showMessageDialog(null, "Se ordenarán los participantes por tiempo de llegada");
+
+         
+            jTableMeta.setModel(new TableModelParticipantes(
+                    carrera.getListaParticipantes()));
+
+  
 
     }//GEN-LAST:event_jButtonFinCarreraActionPerformed
+
+    private void jButtonGuardarResultadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarResultadosActionPerformed
+        
+        logicaNegocio.grabarResultados();
+    }//GEN-LAST:event_jButtonGuardarResultadosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private cronometroana.CronometroAna cronometroAna;
     private javax.swing.JButton jButtonFinCarrera;
+    private javax.swing.JButton jButtonGuardarResultados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenuAyuda;
