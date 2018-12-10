@@ -26,13 +26,14 @@ public class CronometroAna extends JButton implements ActionListener, Serializab
     private int minutos = 0;
     private int horas=0;
     private boolean parado = false;
+    private String tiempoFormateado=String.format("%02d:%02d:%02d", horas, minutos, segundos);
   
     private Meta meta;
 
     public CronometroAna() {
         super();
         timer = new Timer(1000, this);
-        this.setText("0" + ":" + "0" + ":" + "0");
+        this.setText(tiempoFormateado);
         this.setEnabled(true);
         this.setForeground(Color.BLACK);
         this.setBackground(Color.WHITE);
@@ -96,7 +97,7 @@ public void setHoras(int horas) {
         segundos = 0;
         minutos = 0;
         horas=0;
-        this.setText("0" + ":" + "0" + ":" + "0");
+        this.setText(tiempoFormateado);
 
     }
 
