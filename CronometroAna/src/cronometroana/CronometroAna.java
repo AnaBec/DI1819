@@ -43,8 +43,10 @@ public class CronometroAna extends JButton implements ActionListener, Serializab
             @Override
             public void actionPerformed(ActionEvent e) {
 
-               
-                int dorsalParticipante = 0 ;
+               String pregunta = JOptionPane.showInputDialog("¿Qué participante ha llegado "
+                        + "con ese tiempo a la meta? Introduzca su dorsal, por favor");
+                int dorsalParticipante = Integer.parseInt(pregunta);
+            
                 int tiempo = horas*3600+minutos*60+segundos;
                 
                 meta.ejecutar(dorsalParticipante, tiempo);
