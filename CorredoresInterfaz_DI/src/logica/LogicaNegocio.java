@@ -6,7 +6,6 @@
 package logica;
 
 import Utilidades.Utils;
-import static Utilidades.Utils.sdf;
 import java.awt.Component;
 import java.io.*;
 import java.text.ParseException;
@@ -15,7 +14,6 @@ import javax.swing.JOptionPane;
 import modelo.Carrera;
 import modelo.Corredor;
 import modelo.Participante;
-import org.openide.util.Exceptions;
 
 /**
  * Clase LogicaNegocio donde vamos a desarrollar todos los métodos específicos
@@ -29,6 +27,8 @@ public class LogicaNegocio implements Serializable {
     private List<Carrera> listaCarreras;
     private List<Participante> listaParticipantes;
     private List<Carrera> listaCarrerasFinalizadas;
+    private long tiempoActualizacionAutomatica = 0;
+    private transient Timer time;
 
     /**
      * Metodo constructor donde ya creamos la lista de corredores, la lista de
@@ -39,6 +39,7 @@ public class LogicaNegocio implements Serializable {
         listaCorredores = new ArrayList<>();
         listaCarreras = new ArrayList<>();
         listaCarrerasFinalizadas = new ArrayList<>();
+        listaParticipantes = new ArrayList<>();
     }
 
     public List<Corredor> getListaCorredores() {
@@ -109,9 +110,7 @@ public class LogicaNegocio implements Serializable {
     public void anhadirParticipanteACarrera(Participante participante) {
         for (Carrera carrera : listaCarreras) {
             carrera.getListaParticipantes().add(participante);
-
         }
-
     }
 
     /**
@@ -231,6 +230,20 @@ public class LogicaNegocio implements Serializable {
         System.out.println(listaCorredores);
 
     }
+
+    public void ordenarParticipantes() {
+
+        Comparator<Participante> comparatorParticipantes = new Comparator<Participante>() {
+            public int compare(Participante p1, Participante p2) {
+                return new Double(p1.getTiempoLlegada()).compareTo(new Double(p2.getTiempoLlegada()));
+            }
+
+        };
+        listaParticipantes.sort(comparatorParticipantes);
+        System.out.println(listaParticipantes);
+
+    }
+    //Collections.sort(listaParticipantes, (Participante p1, Participante p2) -> new Double(p1.getTiempoLlegada()).compareTo(new Double(p2.getTiempoLlegada())));
 
     /**
      * Método que lee el Csv creado de cada corredor de la lista de corredores.
@@ -368,31 +381,31 @@ public class LogicaNegocio implements Serializable {
         }
     }
 
-    public void guardarAutomaticamenteApp(LogicaNegocio logicaNegocio) throws FileNotFoundException, IOException {
+    public void guardadoAutomatico(int automaticSave) {
 
-        int tiempoGuardado = 0;
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                File fichero = new File("guardarApp.dat");
-                ObjectOutputStream oos = null;
-                try {
-                    oos = new ObjectOutputStream(new FileOutputStream(fichero));
-                } catch (FileNotFoundException ex) {
-                    Exceptions.printStackTrace(ex);
-                } catch (IOException ex) {
-                    Exceptions.printStackTrace(ex);
+        if (automaticSave == 0) {
+            tiempoActualizacionAutomatica = 5 * 60 * 1000;
+        }
+        tiempoActualizacionAutomatica = automaticSave * 60 * 1000;
+        if (time == null) {
+            time = new Timer();
+            time.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    grabarCsvCarrerasIncripcionSolo();
                 }
-                try {
-                    oos.writeObject(logicaNegocio);
-                } catch (IOException ex) {
-                    Exceptions.printStackTrace(ex);
+            }, tiempoActualizacionAutomatica);
+        } else if (time != null) {
+            time.cancel();
+            time = new Timer();
+            time.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    grabarCsvCarrerasIncripcionSolo();
                 }
+            }, tiempoActualizacionAutomatica);
 
-            }
-        }, 0, tiempoGuardado * 60 * 1000);
+        }
 
     }
 
@@ -402,7 +415,6 @@ public class LogicaNegocio implements Serializable {
         PrintWriter pw = null;
 
         for (int i = 0; i < listaCarrerasFinalizadas.size(); i++) {
-            
 
             try {
                 fw = new FileWriter("Resultado.csv", true);
